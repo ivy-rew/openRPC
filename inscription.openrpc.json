@@ -69,13 +69,20 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/PID"
-        },
-        {
-          "name": "data",
+          "name": "saveDataArgs",
           "required": true,
           "schema": {
-            "$ref": "#/components/schemas/Data"
+            "type": "object",
+            "properties": {
+              "pid": {
+                "type": "string"
+              },
+              "data": {
+                "schema": {
+                  "$ref": "#/components/schemas/Data"
+                }
+              }
+            }
           }
         }
       ],
@@ -193,14 +200,6 @@
               }
             }
           }
-        }
-      },
-      "PID": {
-        "name": "pid",
-        "description": "qualified process element id (pid): e.g. 15254DCE818AD7A2-f3",
-        "required": true,
-        "schema": {
-          "type": "string"
         }
       }
     },
