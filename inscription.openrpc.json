@@ -20,6 +20,21 @@
   ],
   "methods": [
     {
+      "name": "initialize",
+      "tags": [
+        {
+          "name": "editor"
+        }
+      ],
+      "params": [],
+      "result": {
+        "name": "initialized",
+        "schema": {
+          "type" : "boolean"
+        }
+      }
+    },
+    {
       "name": "data",
       "summary": "All inscription data of a process element",
       "tags": [
@@ -29,7 +44,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/PID"
+          "$ref": "#/components/contentDescriptors/InscribeArg"
         }
       ],
       "result": {
@@ -162,6 +177,20 @@
   ],
   "components": {
     "contentDescriptors": {
+      "InscribeArg": {
+        "name": "inscribe",
+        "required": true,
+        "schema": {
+          "type": "object",
+          "properties": {
+            "pid": {
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
       "PID": {
         "name": "pid",
         "description": "qualified process element id (pid): e.g. 15254DCE818AD7A2-f3",
