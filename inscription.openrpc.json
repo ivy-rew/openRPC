@@ -64,7 +64,7 @@
         "name": "validation message",
         "description": "ALPHA: validation message struct is yet not generated anywhere",
         "schema": {
-          "type" : "array"
+          "type": "array"
         }
       }
     },
@@ -88,6 +88,73 @@
           "type": "array",
           "items": {
             "$ref": "#/components/schemas/CallableStart"
+          }
+        }
+      }
+    },
+    {
+      "name": "meta/out/map",
+      "summary": "Mappings",
+      "tags": [
+        {
+          "name": "meta"
+        }
+      ],
+      "params": [
+        {
+          "$ref": "#/components/contentDescriptors/PID"
+        }
+      ],
+      "result": {
+        "name": "mapping info",
+        "description": "output mapping table info",
+        "schema": {
+          "$ref": "#/components/schemas/MappingInfo"
+        }
+      }
+    },
+    {
+      "name": "meta/workflow/roles",
+      "summary": "roles accessible from the elements-project",
+      "tags": [
+        {
+          "name": "meta"
+        }
+      ],
+      "params": [
+        {
+          "$ref": "#/components/contentDescriptors/PID"
+        }
+      ],
+      "result": {
+        "name": "roles",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/RoleMeta"
+          }
+        }
+      }
+    },
+    {
+      "name": "meta/workflow/expiryErrors",
+      "summary": "error starts, that can handle expiry errors",
+      "tags": [
+        {
+          "name": "meta"
+        }
+      ],
+      "params": [
+        {
+          "$ref": "#/components/contentDescriptors/PID"
+        }
+      ],
+      "result": {
+        "name": "errorHandlers",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/ErrorMeta"
           }
         }
       }
