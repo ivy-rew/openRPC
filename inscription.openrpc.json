@@ -41,6 +41,34 @@
       }
     },
     {
+      "name": "saveData",
+      "summary": "sets the inscription data of a process element",
+      "tags": [
+        {
+          "name": "editor"
+        }
+      ],
+      "params": [
+        {
+          "$ref": "#/components/contentDescriptors/PID"
+        },
+        {
+          "name": "data",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Data"
+          }
+        }
+      ],
+      "result": {
+        "name": "validation message",
+        "description": "ALPHA: validation message struct is yet not generated anywhere",
+        "schema": {
+          "type" : "array"
+        }
+      }
+    },
+    {
       "name": "meta/start/dialogs",
       "summary": "Startable Dialogs",
       "tags": [
