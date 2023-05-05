@@ -9,8 +9,12 @@
   },
   "servers": [
     {
-      "url": "ws://localhost:${port}/designer/ivy-inscription-lsp",
+      "url": "ws://${host}:${port}/designer/ivy-inscription-lsp",
       "variables": {
+        "host": {
+          "description": "host where the AxonIvy Designer is running",
+          "default": "localhost"
+        },
         "port": {
           "description": "port where an AxonIvy Designer is running",
           "default": "8081"
@@ -30,7 +34,7 @@
       "result": {
         "name": "initialized",
         "schema": {
-          "type" : "boolean"
+          "type": "boolean"
         }
       }
     },
@@ -93,7 +97,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/PID"
+          "$ref": "#/components/contentDescriptors/InscribeArg"
         }
       ],
       "result": {
@@ -117,7 +121,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/PID"
+          "$ref": "#/components/contentDescriptors/InscribeArg"
         }
       ],
       "result": {
@@ -138,7 +142,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/PID"
+          "$ref": "#/components/contentDescriptors/InscribeArg"
         }
       ],
       "result": {
@@ -161,7 +165,7 @@
       ],
       "params": [
         {
-          "$ref": "#/components/contentDescriptors/PID"
+          "$ref": "#/components/contentDescriptors/InscribeArg"
         }
       ],
       "result": {
