@@ -1,0 +1,1526 @@
+{
+  "openrpc": "1.0.0-rc1",
+  "info": {
+    "version": "1.0.0",
+    "title": "Process Inscription",
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "ws://localhost:${port}/designer/ivy-inscription-lsp",
+      "variables": {
+        "port": {
+          "description": "port where an AxonIvy Designer is running",
+          "default": "8081"
+        }
+      }
+    }
+  ],
+  "methods": [
+    {
+      "name": "data",
+      "summary": "All inscription data of a process element",
+      "tags": [
+        {
+          "name": "editor"
+        }
+      ],
+      "params": [
+        {
+          "$ref": "#/components/contentDescriptors/PID"
+        }
+      ],
+      "result": {
+        "name": "inscription",
+        "description": "All inscription data",
+        "schema": {
+          "$ref": "#/components/schemas/InscriptionRequest"
+        }
+      }
+    },
+    {
+      "name": "meta/start/dialogs",
+      "summary": "Startable Dialogs",
+      "tags": [
+        {
+          "name": "meta"
+        }
+      ],
+      "params": [
+        {
+          "$ref": "#/components/contentDescriptors/PID"
+        }
+      ],
+      "result": {
+        "name": "starts",
+        "description": "Dialog Starts",
+        "schema": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/CallableStart"
+          }
+        }
+      }
+    }
+  ],
+  "components": {
+    "contentDescriptors": {
+      "PID": {
+        "name": "pid",
+        "description": "qualified process element id (pid): e.g. 15254DCE818AD7A2-f3",
+        "required": true,
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "schemas": {
+      "Cache": {
+        "type": "object",
+        "properties": {
+          "entry": {
+            "$ref": "#/components/schemas/CacheArtifact"
+          },
+          "group": {
+            "$ref": "#/components/schemas/CacheArtifact"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/CacheMode"
+          },
+          "scope": {
+            "$ref": "#/components/schemas/CacheScope"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CacheArtifact": {
+        "type": "object",
+        "properties": {
+          "invalidation": {
+            "$ref": "#/components/schemas/CacheInvalidation"
+          },
+          "name": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CacheInvalidation": {
+        "type": "string",
+        "enum": ["NONE", "FIXED_TIME", "LIFETIME"]
+      },
+      "CacheMode": {
+        "type": "string",
+        "enum": ["DO_NOT_CACHE", "CACHE", "INVALIDATE_CACHE"]
+      },
+      "CacheScope": {
+        "type": "string",
+        "enum": ["SESSION", "APPLICATION"]
+      },
+      "CallableStart": {
+        "type": "object",
+        "properties": {
+          "callParameter": {
+            "$ref": "#/components/schemas/MappingInfo"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "packageName": {
+            "type": "string"
+          },
+          "process": {
+            "type": "string"
+          },
+          "project": {
+            "type": "string"
+          },
+          "startName": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Data": {
+        "type": "object",
+        "properties": {
+          "config": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ElementTaskEndPage"
+              },
+              {
+                "$ref": "#/components/schemas/ElementTaskSwitchGateway"
+              },
+              {
+                "$ref": "#/components/schemas/ElementSubProcessCall"
+              },
+              {
+                "$ref": "#/components/schemas/ElementDatabase"
+              },
+              {
+                "$ref": "#/components/schemas/ElementCallSubStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementScript"
+              },
+              {
+                "$ref": "#/components/schemas/ElementProgramInterface"
+              },
+              {
+                "$ref": "#/components/schemas/ElementHtmlDialogStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementSplit"
+              },
+              {
+                "$ref": "#/components/schemas/ElementWebPage"
+              },
+              {
+                "$ref": "#/components/schemas/ElementErrorEnd"
+              },
+              {
+                "$ref": "#/components/schemas/ElementErrorBoundaryEvent"
+              },
+              {
+                "$ref": "#/components/schemas/ElementHtmlDialogEventStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementProgramStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementWebServiceCall"
+              },
+              {
+                "$ref": "#/components/schemas/ElementDialogCall"
+              },
+              {
+                "$ref": "#/components/schemas/ElementTriggerCall"
+              },
+              {
+                "$ref": "#/components/schemas/ElementErrorStartEvent"
+              },
+              {
+                "$ref": "#/components/schemas/ElementRequestStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementWebserviceStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementThirdPartyWaitEvent"
+              },
+              {
+                "$ref": "#/components/schemas/ElementUserTask"
+              },
+              {
+                "$ref": "#/components/schemas/ElementJoin"
+              },
+              {
+                "$ref": "#/components/schemas/ElementSignalBoundaryEvent"
+              },
+              {
+                "$ref": "#/components/schemas/ElementEMail"
+              },
+              {
+                "$ref": "#/components/schemas/ElementTaskSwitchEvent"
+              },
+              {
+                "$ref": "#/components/schemas/ElementHtmlDialogMethodStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementThirdPartyProgramInterface"
+              },
+              {
+                "$ref": "#/components/schemas/ElementWaitEvent"
+              },
+              {
+                "$ref": "#/components/schemas/ElementRestClientCall"
+              },
+              {
+                "$ref": "#/components/schemas/ElementThirdPartyProgramStart"
+              },
+              {
+                "$ref": "#/components/schemas/ElementSignalStartEvent"
+              }
+            ]
+          },
+          "description": {
+            "type": "string"
+          },
+          "docs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            }
+          },
+          "name": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "DbQuery": {
+        "type": "object",
+        "properties": {
+          "dbName": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "string"
+          },
+          "offset": {
+            "type": "string"
+          },
+          "sql": {
+            "$ref": "#/components/schemas/DbSqlStatement"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DbSqlStatement": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "type": "string"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "kind": {
+            "$ref": "#/components/schemas/QueryKind"
+          },
+          "orderBy": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "quote": {
+            "type": "boolean"
+          },
+          "select": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stmt": {
+            "type": "string"
+          },
+          "table": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementCallSubStart": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "input": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "signature": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementDatabase": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "cache": {
+            "$ref": "#/components/schemas/Cache"
+          },
+          "query": {
+            "$ref": "#/components/schemas/DbQuery"
+          },
+          "exceptionHandler": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementDialogCall": {
+        "type": "object",
+        "properties": {
+          "call": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "dialog": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementEMail": {
+        "type": "object",
+        "properties": {
+          "headers": {
+            "$ref": "#/components/schemas/MailHeaders"
+          },
+          "failIfMissingAttachments": {
+            "type": "boolean"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "message": {
+            "$ref": "#/components/schemas/MailMessage"
+          },
+          "exceptionHandler": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementErrorBoundaryEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "errorCode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementErrorEnd": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "throws": {
+            "$ref": "#/components/schemas/ErrorDefinition"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementErrorStartEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "errorCode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementHtmlDialogEventStart": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "guid": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementHtmlDialogMethodStart": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "input": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "guid": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementHtmlDialogStart": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "input": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "guid": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementJoin": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementProgramInterface": {
+        "type": "object",
+        "properties": {
+          "javaClass": {
+            "type": "string"
+          },
+          "userConfig": {
+            "type": "string"
+          },
+          "exceptionHandler": {
+            "type": "string"
+          },
+          "timeout": {
+            "$ref": "#/components/schemas/JavaTimeout"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementProgramStart": {
+        "type": "object",
+        "properties": {
+          "javaClass": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "permission": {
+            "$ref": "#/components/schemas/StartPermission"
+          },
+          "userConfig": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementRequestStart": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "request": {
+            "$ref": "#/components/schemas/StartRequest"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WfTask"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "permission": {
+            "$ref": "#/components/schemas/StartPermission"
+          },
+          "triggerable": {
+            "type": "boolean"
+          },
+          "case": {
+            "$ref": "#/components/schemas/WfCase"
+          },
+          "persistOnStart": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementRestClientCall": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "method": {
+            "$ref": "#/components/schemas/HttpMethod"
+          },
+          "response": {
+            "$ref": "#/components/schemas/RestResponse"
+          },
+          "body": {
+            "$ref": "#/components/schemas/RestBody"
+          },
+          "target": {
+            "$ref": "#/components/schemas/RestTarget"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementScript": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "sudo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementSignalBoundaryEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "signalCode": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementSignalStartEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "signalCode": {
+            "type": "string"
+          },
+          "attachToBusinessCase": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementSplit": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementSubProcessCall": {
+        "type": "object",
+        "properties": {
+          "call": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "processCall": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementTaskEndPage": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementTaskSwitchEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WfTask"
+          },
+          "page": {
+            "type": "string"
+          },
+          "case": {
+            "$ref": "#/components/schemas/WfCase"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementTaskSwitchGateway": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "page": {
+            "type": "string"
+          },
+          "case": {
+            "$ref": "#/components/schemas/WfCase"
+          },
+          "tasks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WfTask"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementThirdPartyProgramInterface": {
+        "type": "object",
+        "properties": {
+          "javaClass": {
+            "type": "string"
+          },
+          "userConfig": {
+            "type": "string"
+          },
+          "exceptionHandler": {
+            "type": "string"
+          },
+          "timeout": {
+            "$ref": "#/components/schemas/JavaTimeout"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementThirdPartyProgramStart": {
+        "type": "object",
+        "properties": {
+          "javaClass": {
+            "type": "string"
+          },
+          "link": {
+            "type": "string"
+          },
+          "permission": {
+            "$ref": "#/components/schemas/StartPermission"
+          },
+          "userConfig": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementThirdPartyWaitEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WfTask"
+          },
+          "javaClass": {
+            "type": "string"
+          },
+          "userConfig": {
+            "type": "string"
+          },
+          "timeout": {
+            "$ref": "#/components/schemas/JavaEventTimeout"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementTriggerCall": {
+        "type": "object",
+        "properties": {
+          "call": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "processCall": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementTypes": {
+        "type": "string",
+        "enum": [
+          "ServiceBpmnElement",
+          "TaskEndPage",
+          "TaskSwitchGateway",
+          "ReceiveBpmnElement",
+          "ProcessAnnotation",
+          "SubProcessCall",
+          "EmbeddedEnd",
+          "Database",
+          "CallSubStart",
+          "CallSubEnd",
+          "Script",
+          "Alternative",
+          "SendBpmnElement",
+          "ProgramInterface",
+          "HtmlDialogExit",
+          "ScriptBpmnElement",
+          "HtmlDialogStart",
+          "EmbeddedStart",
+          "Split",
+          "WebserviceEnd",
+          "WebPage",
+          "ErrorEnd",
+          "UserBpmnElement",
+          "RuleBpmnElement",
+          "ErrorBoundaryEvent",
+          "GenericBpmnElement",
+          "HtmlDialogEventStart",
+          "ProgramStart",
+          "EmbeddedProcessElement",
+          "WebServiceCall",
+          "DialogCall",
+          "TriggerCall",
+          "ErrorStartEvent",
+          "TaskEnd",
+          "RequestStart",
+          "WebserviceStart",
+          "ThirdPartyWaitEvent",
+          "UserTask",
+          "Join",
+          "SignalBoundaryEvent",
+          "EMail",
+          "TaskSwitchEvent",
+          "HtmlDialogMethodStart",
+          "ThirdPartyProgramInterface",
+          "WaitEvent",
+          "RestClientCall",
+          "ManualBpmnElement",
+          "ThirdPartyProgramStart",
+          "HtmlDialogEnd",
+          "SignalStartEvent"
+        ]
+      },
+      "ElementUserTask": {
+        "type": "object",
+        "properties": {
+          "call": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "dialog": {
+            "type": "string"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WfTask"
+          },
+          "case": {
+            "$ref": "#/components/schemas/WfCase"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementWaitEvent": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WfTask"
+          },
+          "javaClass": {
+            "type": "string"
+          },
+          "userConfig": {
+            "type": "string"
+          },
+          "timeout": {
+            "$ref": "#/components/schemas/JavaEventTimeout"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementWebPage": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementWebServiceCall": {
+        "type": "object",
+        "properties": {
+          "output": {
+            "$ref": "#/components/schemas/ScriptMapCode"
+          },
+          "cache": {
+            "$ref": "#/components/schemas/Cache"
+          },
+          "clientId": {
+            "type": "string"
+          },
+          "operation": {
+            "$ref": "#/components/schemas/SoapOperation"
+          },
+          "exceptionHandler": {
+            "type": "string"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ElementWebserviceStart": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "exception": {
+            "$ref": "#/components/schemas/SoapWsProcessException"
+          },
+          "input": {
+            "$ref": "#/components/schemas/ScriptParameterizedMapCode"
+          },
+          "task": {
+            "$ref": "#/components/schemas/WfTask"
+          },
+          "signature": {
+            "type": "string"
+          },
+          "permission": {
+            "$ref": "#/components/schemas/StartPermission"
+          },
+          "case": {
+            "$ref": "#/components/schemas/WfCase"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorDefinition": {
+        "type": "object",
+        "properties": {
+          "cause": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorMeta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpMethod": {
+        "type": "string",
+        "enum": [
+          "GET",
+          "POST",
+          "PUT",
+          "HEAD",
+          "DELETE",
+          "PATCH",
+          "OPTIONS",
+          "JAX_RS"
+        ]
+      },
+      "InputType": {
+        "type": "string",
+        "enum": ["ENTITY", "FORM", "RAW"]
+      },
+      "InscriptionRequest": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Data"
+          },
+          "defaults": {},
+          "pid": {
+            "type": "string"
+          },
+          "readonly": {
+            "type": "boolean"
+          },
+          "type": {
+            "$ref": "#/components/schemas/InscriptionType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InscriptionType": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "iconId": {
+            "type": "string"
+          },
+          "id": {
+            "additionalProperties": false,
+            "$ref": "#/components/schemas/ElementTypes"
+          },
+          "impl": {
+            "type": ["string", "null"]
+          },
+          "label": {
+            "type": "string"
+          },
+          "shortLabel": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IntermediateEventTimeoutAction": {
+        "type": "string",
+        "enum": ["NOTHING", "DESTROY_TASK", "CONTINUE_WITHOUT_EVENT"]
+      },
+      "JavaEventTimeout": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/IntermediateEventTimeoutAction"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "JavaTimeout": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "seconds": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MailHeaders": {
+        "type": "object",
+        "properties": {
+          "bcc": {
+            "type": "string"
+          },
+          "cc": {
+            "type": "string"
+          },
+          "from": {
+            "type": "string"
+          },
+          "replyTo": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MailMessage": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "type": "string"
+          },
+          "contentType": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Map(String,List(Variable))": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Variable"
+          }
+        }
+      },
+      "MappingInfo": {
+        "type": "object",
+        "properties": {
+          "types": {
+            "$ref": "#/components/schemas/Map(String,List(Variable))"
+          },
+          "variables": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Variable"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "Metas": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorMeta"
+          },
+          "role": {
+            "$ref": "#/components/schemas/RoleMeta"
+          },
+          "start": {
+            "$ref": "#/components/schemas/CallableStart"
+          }
+        },
+        "additionalProperties": false
+      },
+      "QueryKind": {
+        "type": "string",
+        "enum": ["READ", "WRITE", "UPDATE", "DELETE", "ANY"]
+      },
+      "RestBody": {
+        "type": "object",
+        "properties": {
+          "entity": {
+            "$ref": "#/components/schemas/RestPayloadMapping"
+          },
+          "form": {
+            "$ref": "#/components/schemas/RestMultiValuedMap"
+          },
+          "mediaType": {
+            "type": "string"
+          },
+          "raw": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/InputType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RestMultiValuedMap": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "RestPayloadMapping": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "map": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RestResponse": {
+        "type": "object",
+        "properties": {
+          "clientError": {
+            "type": "string"
+          },
+          "entity": {
+            "$ref": "#/components/schemas/RestPayloadMapping"
+          },
+          "statusError": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RestTarget": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "string"
+          },
+          "headers": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "path": {
+            "type": "string"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "queryParams": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "templateParams": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RoleMeta": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScriptMapCode": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "map": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScriptMappings": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "ScriptParameterizedMapCode": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "map": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "params": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ScriptVariable"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScriptVariable": {
+        "type": "object",
+        "properties": {
+          "desc": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SoapOperation": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "parameters": {
+            "$ref": "#/components/schemas/ScriptMappings"
+          },
+          "port": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SoapWsProcessException": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "type": "string"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StartCustomStartField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StartPermission": {
+        "type": "object",
+        "properties": {
+          "anonymous": {
+            "type": "boolean"
+          },
+          "error": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "StartRequest": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "customFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StartCustomStartField"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "isHttpRequestable": {
+            "type": "boolean"
+          },
+          "isVisibleOnStartList": {
+            "type": "boolean"
+          },
+          "linkName": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Variable": {
+        "type": "object",
+        "properties": {
+          "attribute": {
+            "type": "string"
+          },
+          "simpleType": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WfActivator": {
+        "type": "object",
+        "properties": {
+          "activator": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/WfActivatorType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WfActivatorType": {
+        "type": "string",
+        "enum": [
+          "ROLE",
+          "ROLE_FROM_ATTRIBUTE",
+          "USER_FROM_ATTRIBUTE",
+          "DELETE_TASK"
+        ]
+      },
+      "WfCase": {
+        "type": "object",
+        "properties": {
+          "attachToBusinessCase": {
+            "type": "boolean"
+          },
+          "category": {
+            "type": "string"
+          },
+          "customFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WfCustomField"
+            }
+          },
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WfCustomField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/WfFieldType"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WfExpiry": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/WfPriority"
+          },
+          "responsible": {
+            "$ref": "#/components/schemas/WfActivator"
+          },
+          "timeout": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WfFieldType": {
+        "type": "string",
+        "enum": ["STRING", "TEXT", "NUMBER", "TIMESTAMP"]
+      },
+      "WfLevel": {
+        "type": "string",
+        "enum": ["EXCEPTION", "HIGH", "NORMAL", "LOW", "SCRIPT"]
+      },
+      "WfPriority": {
+        "type": "object",
+        "properties": {
+          "level": {
+            "$ref": "#/components/schemas/WfLevel"
+          },
+          "script": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WfTask": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          },
+          "code": {
+            "type": "string"
+          },
+          "customFields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WfCustomField"
+            }
+          },
+          "delay": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "expiry": {
+            "$ref": "#/components/schemas/WfExpiry"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/WfPriority"
+          },
+          "responsible": {
+            "$ref": "#/components/schemas/WfActivator"
+          },
+          "skipTasklist": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
